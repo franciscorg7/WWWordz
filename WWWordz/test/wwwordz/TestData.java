@@ -18,7 +18,8 @@ public class TestData {
 				"Beltrano", 
 				"Sicrano",
 				"Fulano de Tal", 
-				"Beltrano de Qual", 
+				"Beltrano de Qual",
+				"Teste do git",
 				"Sicraninho de Tal");
 	}
 }

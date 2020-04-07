@@ -182,6 +182,10 @@ implements java.lang.Iterable<Table.Cell>, java.io.Serializable{
 			this.row = tableBeggining;
 		}
 		
+		public Cell current() {
+			return getCell(this.row, this.column);
+		}
+		
 		@Override
 		public boolean hasNext() {
 			if(this.column == tableSize && this.row == tableSize) return false;
@@ -221,7 +225,7 @@ implements java.lang.Iterable<Table.Cell>, java.io.Serializable{
 	// Just for Table methods debugging
 	public static void main(String[] args) {
 		String[] data = new String[] {"PATO", "SACO", "BOLA", "TITA"};
-		String[] data2 = new String[] {"GOLO", "CACA", "LATA", "FRIA"};;
+		String[] data2 = new String[] {"GOLO", "CACA", "LATA", "FRIA"};
 		
 		Table table = new Table(data);
 		Table table2 = new Table(data2);
@@ -231,9 +235,14 @@ implements java.lang.Iterable<Table.Cell>, java.io.Serializable{
 		Cell c1 = table.getCell(2,2);
 		Cell c2 = table2.getCell(2,2);
 		
+		int l=0;
 		for(Iterator<Cell> it = table.iterator(); it.hasNext();) {
-			System.out.println(it.next().toString());
+			l++;
+			System.out.println(((CellIterator) it).current().toString());
+			it.next();
 		}
+		
+		System.out.println(l);
 		
 		if(c1.equals(c2)) System.out.println("Iguais");
 		else System.out.println("Diferentes");

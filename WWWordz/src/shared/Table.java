@@ -2,6 +2,7 @@ package shared;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.LinkedList;
 
 public class Table
 extends java.lang.Object
@@ -40,7 +41,15 @@ implements java.lang.Iterable<Table.Cell>, java.io.Serializable{
 	}
 	
 	public List<Cell> getEmptyCells(){
-		return null;
+		List<Cell> emptyCells = new LinkedList<>();
+		
+		for(int i = tableBeggining; i < tableSize; i++) {
+			for(int j = tableBeggining; j < tableSize; j++) {
+				if(table[i][j].letter == ' ') emptyCells.add(table[i][j]);
+			}
+		}
+		
+		return emptyCells;
 	}
 	
 	public List<Cell> getNeighbors(Cell cell){

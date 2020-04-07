@@ -80,7 +80,19 @@ implements java.lang.Iterable<Table.Cell>, java.io.Serializable{
 	
 	@Override
 	public boolean equals(Object obj) {
-		return false;
+		if(this == obj) return true; // Comparing object to itself
+		if(obj == null) return false; // Comparing to a null object
+		if (this.getClass() != obj.getClass()) return false; // Comparing both classes
+		
+		// typecast obj to Table to compare data members
+		Table tb = (Table) obj;
+		
+		for(int i = tableBeggining; i <= tableSize; i++) {
+			for(int j = tableBeggining; j <= tableSize; j++) {
+				if(!table[i][j].equals(tb.table[i][j])) return false;
+			}
+		}
+		return true;
 	}
 	
 	// Table Cells
@@ -114,6 +126,15 @@ implements java.lang.Iterable<Table.Cell>, java.io.Serializable{
 		
 		@Override
 		public boolean equals(Object obj) {
+			if(this == obj) return true; // Comparing object to itself
+			if(obj == null) return false; // Comparing to a null object
+			if (this.getClass() != obj.getClass()) return false; // Comparing both classes
+			
+			// typecast obj to Cell to compare data members
+			Cell c = (Cell) obj;
+			
+			// Unic condition to cell equality
+			if(row == c.row && column == c.column && letter == c.letter) return true;
 			return false;
 		}
 		

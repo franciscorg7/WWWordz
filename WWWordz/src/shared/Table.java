@@ -53,7 +53,16 @@ implements java.lang.Iterable<Table.Cell>, java.io.Serializable{
 	}
 	
 	public List<Cell> getNeighbors(Cell cell){
-		return null;
+		List<Cell> neighbors = new LinkedList<>();
+		
+		for(int i = cell.row-1; i <= cell.row+1; i++) {
+			for(int j = cell.column-1; j <= cell.column+1; j++) {
+				if(table[i][j].letter != ' ' && table[i][j] != cell) {
+					neighbors.add(table[i][j]);;
+				}
+			}
+		}
+		return neighbors;
 	}
 	
 	public Cell getCell(int row, int column) {
@@ -74,7 +83,7 @@ implements java.lang.Iterable<Table.Cell>, java.io.Serializable{
 	
 	@Override
 	public int hashCode() {
-		return 0;
+		return 1;
 	}
 	
 	@Override
@@ -143,7 +152,7 @@ implements java.lang.Iterable<Table.Cell>, java.io.Serializable{
 		
 		@Override
 		public int hashCode() {
-			return 0;
+			return 1;
 		}
 		
 		public void setLetter(char letter) {
@@ -212,16 +221,34 @@ implements java.lang.Iterable<Table.Cell>, java.io.Serializable{
 	// Just for Table methods debugging
 	public static void main(String[] args) {
 		String[] data = new String[] {"PATO", "SACO", "BOLA", "TITA"};
+		String[] data2 = new String[] {"GOLO", "CACA", "LATA", "FRIA"};;
+		
 		Table table = new Table(data);
+		Table table2 = new Table(data2);
+		
 		System.out.println(table.toString());
 		
+		Cell c1 = table.getCell(2,2);
+		Cell c2 = table2.getCell(2,2);
+		
 		for(Iterator<Cell> it = table.iterator(); it.hasNext();) {
-			System.out.println(it.next());
-		} 
+			System.out.println(it.next().toString());
+		}
+		
+		if(c1.equals(c2)) System.out.println("Iguais");
+		else System.out.println("Diferentes");
+		
+		List<Cell> list = table.getNeighbors(table.getCell(2,2));
+		
+		for(Cell c : list) {
+			System.out.println(c.toString());
+		}
 		
 		Iterator<Cell> it = table.iterator();
 		it.next();
 		it.remove();
+		if(table.getCell(1,2).isEmpty()) System.out.println("Vazio");
 		System.out.println(table.toString());
+		
 	}
 }

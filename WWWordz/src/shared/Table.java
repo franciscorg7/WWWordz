@@ -11,7 +11,7 @@ implements java.lang.Iterable<Table.Cell>, java.io.Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 2548293690897888580L;
+	private static final long serialVersionUID = 1L;
 	
 	private static final int tableBeggining = 1;
 	private static final int tableSize = 4;
@@ -19,8 +19,8 @@ implements java.lang.Iterable<Table.Cell>, java.io.Serializable{
 	Cell[][] table = new Cell[5][5];
 	
 	public Table() {
-		for(int i = tableBeggining; i < tableSize; i++) {
-			for(int j = tableBeggining; j < tableSize; j++) {
+		for(int i = tableBeggining; i <= tableSize; i++) {
+			for(int j = tableBeggining; j <= tableSize; j++) {
 				table[i][j] = new Cell(i, j);
 			}
 		}
@@ -43,8 +43,8 @@ implements java.lang.Iterable<Table.Cell>, java.io.Serializable{
 	public List<Cell> getEmptyCells(){
 		List<Cell> emptyCells = new LinkedList<>();
 		
-		for(int i = tableBeggining; i < tableSize; i++) {
-			for(int j = tableBeggining; j < tableSize; j++) {
+		for(int i = tableBeggining; i <= tableSize; i++) {
+			for(int j = tableBeggining; j <= tableSize; j++) {
 				if(table[i][j].letter == ' ') emptyCells.add(table[i][j]);
 			}
 		}
@@ -68,8 +68,7 @@ implements java.lang.Iterable<Table.Cell>, java.io.Serializable{
 				str += table[i][j].toString(); 
 			}
 			str += "\n";
-		}
-		
+		}	
 		return str;
 	}
 	

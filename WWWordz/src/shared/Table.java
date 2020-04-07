@@ -180,6 +180,7 @@ implements java.lang.Iterable<Table.Cell>, java.io.Serializable{
 		return new CellIterator();
 	}
 	
+	// Just for Table methods debugging
 	public static void main(String[] args) {
 		String[] data = new String[] {"PATO", "SACO", "BOLA", "TITA"};
 		Table table = new Table(data);

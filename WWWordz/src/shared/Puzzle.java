@@ -20,7 +20,7 @@ implements java.io.Serializable{
 	public Puzzle() {
 	}
 	
-	List<Solution> getSolutions(){
+	public List<Solution> getSolutions(){
 		return this.solutions;
 	}
 	

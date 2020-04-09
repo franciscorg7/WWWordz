@@ -12,9 +12,10 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import wwwordz.shared.Puzzle;
-import wwwordz.shared.Puzzle.Solution;
-import wwwordz.shared.Table;
+import puzzle.Generator;
+import shared.Puzzle;
+import shared.Puzzle.Solution;
+import shared.Table;
 import wwwordz.shared.TableTest;
 
 public class GeneratorTest {

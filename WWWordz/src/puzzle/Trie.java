@@ -33,6 +33,8 @@ implements java.lang.Iterable<String>{
 			largeWord += n.val;
 		}
 		
+		// Make sure the word's length is at least 5 before returning 
+		if(largeWord.length() < 5) return getRandomLargeWord();
 		return largeWord;
 	}
 	

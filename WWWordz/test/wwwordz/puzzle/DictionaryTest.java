@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
 import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -42,10 +43,11 @@ public class DictionaryTest {
 	 * Check a large number of words in the dictionary
 	 * 1) wall larger than 3 letters
 	 * 2) just with capital letters
+	 * @throws IOException 
 	 */
 	@RepeatedTest(1000)
 	@DisplayName("Random word")
-	public void testGetRandomWord() {
+	public void testGetRandomWord() throws IOException {
 		String word = dictionary.getRandomLargeWord();
 		assertTrue(word.length() >= 3,"Word size must be larger than 3");
 		assertTrue(allLetterPattern.matcher(word).matches(),"Words only with capitals");

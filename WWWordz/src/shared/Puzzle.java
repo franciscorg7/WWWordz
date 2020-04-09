@@ -18,6 +18,7 @@ implements java.io.Serializable{
 	List<Solution> solutions;
 	
 	public Puzzle() {
+		this.table = new Table();
 	}
 	
 	public List<Solution> getSolutions(){

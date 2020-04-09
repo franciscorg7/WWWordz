@@ -33,8 +33,8 @@ implements java.lang.Iterable<String>{
 			largeWord += n.val;
 		}
 		
-		// Make sure the word's length is at least 5 before returning 
-		if(largeWord.length() < 5) return getRandomLargeWord();
+		// Make sure the word's length is at least 3 before returning 
+		if(largeWord.length() < 3) return getRandomLargeWord();
 		return largeWord;
 	}
 	
@@ -83,8 +83,7 @@ implements java.lang.Iterable<String>{
 	
 	@Override
 	public Iterator<String> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new NodeIterator();
 	}
 	
 	public class Node{

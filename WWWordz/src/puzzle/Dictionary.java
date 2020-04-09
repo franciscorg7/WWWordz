@@ -26,8 +26,10 @@ extends java.lang.Object {
         return single_instance;
 	}
 	
-	public String getRandomLargeWord() {
-		return null;
+	public String getRandomLargeWord() throws IOException {
+		Trie t = parseDictionary();
+		
+		return t.getRandomLargeWord();
 		
 	}
 	
@@ -88,7 +90,7 @@ extends java.lang.Object {
         myBuffer.close();
         
         Trie t = parseDictionary();
-        Node n = t.searchNode("OTORRINOLARINGOLOGIA");
+        Node n = t.searchNode("PILA");
         System.out.println("Word: " + n.isWord);
         System.out.println("Leaf: " + n.isLeaf());
         

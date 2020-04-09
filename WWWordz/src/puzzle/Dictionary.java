@@ -88,7 +88,7 @@ extends java.lang.Object {
         myBuffer.close();
         
         Trie t = parseDictionary();
-        Node n = t.searchNode("CRIA");
+        Node n = t.searchNode("OTORRINOLARINGOLOGIA");
         System.out.println("Word: " + n.isWord);
         System.out.println("Leaf: " + n.isLeaf());
 	}

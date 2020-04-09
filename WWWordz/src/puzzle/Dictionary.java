@@ -91,5 +91,8 @@ extends java.lang.Object {
         Node n = t.searchNode("OTORRINOLARINGOLOGIA");
         System.out.println("Word: " + n.isWord);
         System.out.println("Leaf: " + n.isLeaf());
+        
+        String test = t.getRandomLargeWord();
+        System.out.println(test);
 	}
 }

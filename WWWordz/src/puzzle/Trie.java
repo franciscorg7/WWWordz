@@ -2,8 +2,8 @@ package puzzle;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class Trie 
 extends java.lang.Object
@@ -16,7 +16,24 @@ implements java.lang.Iterable<String>{
 	}
 	
 	public String getRandomLargeWord() {
-		return null;
+		String largeWord = "";
+		HashMap<Character, Node> children = root.children;
+		
+		Random generator = new Random();
+		Object[] nodes = children.values().toArray();
+		Node n = (Node) nodes[generator.nextInt(nodes.length)];
+		largeWord += n.val;
+		
+		while(!n.isLeaf()) {
+			children = n.children;
+			generator = new Random();
+			nodes = children.values().toArray();
+			n = (Node) nodes[generator.nextInt(nodes.length)];
+			
+			largeWord += n.val;
+		}
+		
+		return largeWord;
 	}
 	
 	public void put(String word) {

@@ -2,6 +2,7 @@ package shared;
 
 import java.util.Iterator;
 import java.util.List;
+
 import java.util.LinkedList;
 
 public class Table
@@ -235,7 +236,7 @@ implements java.lang.Iterable<Table.Cell>, java.io.Serializable{
 		int l=0;
 		for(Iterator<Cell> it = table.iterator(); it.hasNext();) {
 			l++;
-			System.out.println(((CellIterator) it).next().toString());
+			System.out.println((it.next().toString()));
 			it.next();
 		}
 		

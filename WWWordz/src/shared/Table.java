@@ -16,7 +16,7 @@ implements java.lang.Iterable<Table.Cell>, java.io.Serializable{
 	private static final int tableBeggining = 1;
 	private static final int tableSize = 4;
 	
-	Cell[][] table = new Cell[5][5];
+	Cell[][] table = new Cell[6][6];
 	
 	public Table() {
 		for(int i = tableBeggining; i <= tableSize; i++) {
@@ -57,7 +57,8 @@ implements java.lang.Iterable<Table.Cell>, java.io.Serializable{
 		
 		for(int i = cell.row-1; i <= cell.row+1; i++) {
 			for(int j = cell.column-1; j <= cell.column+1; j++) {
-				if(table[i][j].letter != ' ' && table[i][j] != cell) {
+				
+				if(table[i][j] != null && table[i][j] != cell) {
 					neighbors.add(table[i][j]);;
 				}
 			}
@@ -178,12 +179,8 @@ implements java.lang.Iterable<Table.Cell>, java.io.Serializable{
 		int row;
 		
 		public CellIterator() {
-			this.column = tableBeggining;
+			this.column = tableBeggining - 1; // We must start counting from (1,0) null index since the first cell must be counted as well
 			this.row = tableBeggining;
-		}
-		
-		public Cell current() {
-			return getCell(this.row, this.column);
 		}
 		
 		@Override
@@ -238,7 +235,7 @@ implements java.lang.Iterable<Table.Cell>, java.io.Serializable{
 		int l=0;
 		for(Iterator<Cell> it = table.iterator(); it.hasNext();) {
 			l++;
-			System.out.println(((CellIterator) it).current().toString());
+			System.out.println(((CellIterator) it).next().toString());
 			it.next();
 		}
 		

@@ -1,10 +1,10 @@
 package puzzle;
-
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import puzzle.Trie.Node;
 import shared.Puzzle;
@@ -37,8 +37,18 @@ extends java.lang.Object {
 		return puzzle;
 	}
 	
-	public Puzzle random() {
-		return null;
+	public static Puzzle random() {
+		Random rnd = new Random();
+		Puzzle puzzle = new Puzzle();
+		Table table = puzzle.getTable();
+		for(int i= 1;i<=4;i++) {
+			for(int j =1;j<=4;j++) {
+				char c = (char) (rnd.nextInt(26) + 'a');
+				table.getCell(i,j).setLetter(Character.toUpperCase(c));
+			}
+		}
+		
+		return puzzle; 
 	}
 	
 	public List<Solution> getSolutions(Table table) throws IOException{
@@ -70,4 +80,10 @@ extends java.lang.Object {
 		return solutions;
 
 	}
+	public static void main(String[] args) {
+
+		Puzzle puzzle =random();
+		System.out.println(puzzle.getTable().toString());
+	}
+	
 }

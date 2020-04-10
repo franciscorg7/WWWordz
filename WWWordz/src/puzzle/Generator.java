@@ -41,12 +41,12 @@ extends java.lang.Object {
 		Random rnd = new Random();
 		Puzzle puzzle = new Puzzle();
 		Table table = puzzle.getTable();
-		for(int i= 1;i<=4;i++) {
-			for(int j =1;j<=4;j++) {
+		for(Iterator<Cell> it = table.iterator(); it.hasNext();) {
 				char c = (char) (rnd.nextInt(26) + 'a');
-				table.getCell(i,j).setLetter(Character.toUpperCase(c));
+				Cell cell=it.next();
+				cell.setLetter(Character.toUpperCase(c));
 			}
-		}
+		
 		
 		return puzzle; 
 	}

@@ -2,11 +2,8 @@ package puzzle;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
-import puzzle.Trie.Node;
 import shared.Puzzle;
 import shared.Puzzle.Solution;
 import shared.Table;
@@ -45,27 +42,16 @@ extends java.lang.Object {
 		List<Solution> solutions = new LinkedList<>();
 		Trie t = Dictionary.parseDictionary();
 		String word = table.getCell(1, 1).toString();
-		Node n = t.searchNode(word);
-		List<Cell> path = new ArrayList<Cell>();
-		if(n != null) {
-			path.add(table.getCell(1, 1));
-			Solution sol = new Solution(n.val, path);
-			solutions.add(sol);
-		}
-		
-		
-		
 		List<Cell> visited = new ArrayList<Cell>();
-		for(Iterator<Cell> it = table.iterator(); it.hasNext();) {
-			List<Cell> neighbors = table.getNeighbors(it.next());
-			for(Cell c : neighbors) {
-				if(t.searchNode(word) != null) {
-					Solution sol = new Solution(word, path);
-				}
-			}
+		List<Cell> path = new ArrayList<Cell>();
+		
+		// If Table[1][1] is a solution, add it to the solutions list
+		if(true) {
+			path.add(table.getCell(1, 1));
+			Solution sol = new Solution(word, path);
+			solutions.add(sol);
+			visited.add(table.getCell(1, 1));
 		}
-		
-		
 		
 		return solutions;
 

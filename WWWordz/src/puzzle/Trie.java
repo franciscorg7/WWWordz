@@ -64,6 +64,7 @@ implements java.lang.Iterable<String>{
 		return null;
 	}
 	
+	// Check if word exists in the trie
 	public Node searchNode(String str){
         Map<Character, Node> children = root.children; 
        

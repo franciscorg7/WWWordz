@@ -22,16 +22,17 @@ public class DictionaryTest {
 	static Dictionary dictionary;
 	
 	@BeforeAll
-	public static void before() {
+	public static void before() throws IOException {
 		dictionary = Dictionary.getInstance();
 	}
 	
 	/**
 	 * Check if Dictionary is singleton
+	 * @throws IOException 
 	 */
 	@Test
 	@DisplayName("Is singleton")
-	public void testSingleton() {
+	public void testSingleton() throws IOException {
 		assertNotNull(dictionary);
 		Dictionary copy = Dictionary.getInstance();
 		assertEquals(dictionary,copy,"Multiples instances of singleton");

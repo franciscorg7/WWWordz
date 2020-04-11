@@ -72,6 +72,10 @@ public class Table extends java.lang.Object implements java.lang.Iterable<Table.
 	public Cell getCell(int row, int column) {
 		return this.table[row][column];
 	}
+	
+	public void editCell(Cell c) {
+		this.table[c.row][c.column] = c;
+	}
 
 	@Override
 	public String toString() {
@@ -218,6 +222,10 @@ public class Table extends java.lang.Object implements java.lang.Iterable<Table.
 			// hasNext() failsafe
 			return null;
 		}
+		
+		public void edit(char letter) {
+			table[this.row][this.column] = new Cell(this.row, this.column, letter);
+		}
 
 		@Override
 		public void remove() {
@@ -247,7 +255,7 @@ public class Table extends java.lang.Object implements java.lang.Iterable<Table.
 		for (Iterator<Cell> it = table.iterator(); it.hasNext();) {
 			l++;
 			System.out.println((it.next().toString()));
-			it.next();
+			((CellIterator) it).edit('a');
 		}
 
 		System.out.println(l);

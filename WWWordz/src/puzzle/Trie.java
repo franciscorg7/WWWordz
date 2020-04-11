@@ -41,29 +41,12 @@ implements java.lang.Iterable<String>{
 	}
 	
 	public void put(String word) {
-		HashMap<Character, Node> children = root.children;
-		 
-        for(int i = 0; i < word.length(); i++) {
-            char c = word.charAt(i);
- 
-            Node t;
-            if(children.containsKey(c)) {
-            	t = children.get(c);
-            } else {
-                t = new Node(c);
-                children.put(c, t);
-            }
- 
-            children = t.children;
- 
-            // Set node as word terminator
-            if(i == word.length()-1)
-                t.isWord = true;  
-        }
+		root.put(word, 0);
 	}
 	
 	public Search startSearch() {
-		return null;
+		Search search = new Search(root);
+		return search;
 	}
 	
 	// Check if word exists in the trie
@@ -91,21 +74,47 @@ implements java.lang.Iterable<String>{
 	
 	public class Node{
 		char val;
+		String wordVal;
 		HashMap<Character, Node> children = new HashMap<Character, Node>();
 		Node parent;
 		boolean isWord;
 		
 		public Node() {
+			this.wordVal = "";
 		}
 		
 		public Node(char c) {
 			this.val = c;
+			this.wordVal = Character.toString(c);
 		}
 		
 		// Check if node is a leaf
 		public boolean isLeaf() {
 			if(this.children.isEmpty()) return true;
 			return false;
+		}
+		
+		public void put(String word, int level) {
+			
+			if(level >= word.length()) {
+				this.isWord = true;
+				return;
+			}
+			
+			HashMap<Character, Node> curChildren = this.children;
+			
+			if(this.children.containsKey(word.charAt(level))) {
+				Node n = curChildren.get(word.charAt(level));
+				n.put(word, level+1);
+			}
+			
+			else {
+				Node child = new Node();
+				child.val = word.charAt(level);
+				child.wordVal = this.wordVal + Character.toString(word.charAt(level));
+				this.children.put(word.charAt(level), child);
+				child.put(word, level+1);
+			}
 		}
 	}
 	
@@ -150,19 +159,17 @@ implements java.lang.Iterable<String>{
 		
 		private void visitValues(Node node) {
 			
-			HashMap<Character, Node> children = node.children;
-            
-			if(children != null) {
-            	Iterator<Entry<Character, Node>> it = children.entrySet().iterator();
-                while (it.hasNext()) {
-                    Map.Entry<Character, Node> pair = (Map.Entry<Character, Node>)it.next();
-                    visitValues(pair.getValue());
-                    synchronized (this) {
-                        if(nextWord != null) handshake();
-                        nextWord = node.val + String.valueOf(pair.getKey());
-                        handshake();
-                    }
-                }
+			if(node.isWord == true) {
+				synchronized(this) {
+					if(nextWord != null)
+						handshake();
+					nextWord = node.wordVal;
+					handshake();
+				}
+			}
+			
+			for(Node n : node.children.values()) {
+				visitValues(n);
 			}
         }
 		

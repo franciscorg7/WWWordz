@@ -17,19 +17,35 @@ public class Generator extends java.lang.Object {
 	public Generator() {
 	}
 
-	public Puzzle generate() throws IOException {
+	public static Puzzle generate() throws IOException {
 		Puzzle puzzle = new Puzzle();
-
-		/*
-		 * while(puzzle.getTable().getEmptyCells().size() != 0) { Dictionary dictionary
-		 * = Dictionary.getInstance(); String word = dictionary.getRandomLargeWord();
-		 * List<Cell> emptyCells = puzzle.getTable().getEmptyCells(); Cell c =
-		 * emptyCells.get(0); for(int i = 0; i < word.length(); i++) { Table table = new
-		 * Table(); c.setLetter(word.charAt(i)); List<Cell> neighbors =
-		 * puzzle.getTable().getNeighbors(c);
-		 * 
-		 * } }
-		 */
+		Table table = puzzle.getTable();
+		
+		while(puzzle.getTable().getEmptyCells().size() != 0) {
+			Dictionary dic = Dictionary.getInstance();
+			String word = dic.getRandomLargeWord();
+			List<Cell> emptyCells = puzzle.getTable().getEmptyCells();
+			
+			int index = 0;
+			for (Iterator<Cell> it = table.iterator(); it.hasNext();) {
+				Cell c = it.next();
+				List<Cell> neighbors = table.getNeighbors(c);
+				for(Cell neighbor : neighbors) {
+					
+					if(index == word.length()-1) break;
+					
+					if(emptyCells.contains(neighbor)) {
+						neighbor.setLetter(word.charAt(index));
+						table.editCell(neighbor);
+						index++;
+					}
+				}
+				
+				if(index == word.length()-1) break;
+			}
+		}
+		
+		puzzle.setTable(table);
 
 		return puzzle;
 	}
@@ -48,14 +64,14 @@ public class Generator extends java.lang.Object {
 		return puzzle;
 	}
 
-	public List<Solution> getSolutions(Table table) throws IOException {
+	public static List<Solution> getSolutions(Table table) throws IOException {
 		List<Solution> solutions = new LinkedList<>();
-		Trie t = Dictionary.parseDictionary();
+		Dictionary dic = Dictionary.getInstance();
+		Trie t = dic.trie;
 		String word = table.getCell(1, 1).toString();
 		List<Cell> visited = new ArrayList<Cell>();
 		List<Cell> path = new ArrayList<Cell>();
 
-		// If Table[1][1] is a solution, add it to the solutions list
 		if (true) {
 			path.add(table.getCell(1, 1));
 			Solution sol = new Solution(word, path);
@@ -67,10 +83,14 @@ public class Generator extends java.lang.Object {
 
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
-		Puzzle puzzle = random();
+		Puzzle puzzle = generate();
 		System.out.println(puzzle.getTable().toString());
+		List<Solution> solutions = getSolutions(puzzle.getTable());
+		for(Solution sol : solutions) {
+			System.out.println(sol.getWord());
+		}
 	}
 
 }

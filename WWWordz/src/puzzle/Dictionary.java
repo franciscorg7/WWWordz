@@ -15,10 +15,12 @@ import puzzle.Trie.Search;
 public class Dictionary
 extends java.lang.Object {
 	
+	Trie trie;
+	private static final String DIC = "src/puzzle/pt-PT-AO.dic";
 	private static Dictionary single_instance = null;
 	
 	// Makes sure it only creates one and only instance of Dictionary
-	public static Dictionary getInstance() {
+	public static Dictionary getInstance() throws IOException {
 		
 		if(single_instance == null) 
             single_instance = new Dictionary(); 
@@ -26,15 +28,13 @@ extends java.lang.Object {
         return single_instance;
 	}
 	
-	public String getRandomLargeWord() throws IOException {
-		Trie t = parseDictionary();
-		
-		return t.getRandomLargeWord();
-		
+	public Dictionary() throws IOException {
+		this.trie = parseDictionary();
 	}
 	
-	public Search startSearch() {
-		return null;
+	public String getRandomLargeWord() throws IOException {
+		return this.trie.getRandomLargeWord();
+		
 	}
 	
 	public static Trie parseDictionary() throws IOException {
@@ -42,7 +42,7 @@ extends java.lang.Object {
 		Trie trie = new Trie();
 		
 		BufferedReader myBuffer = new BufferedReader(
-				new InputStreamReader(new FileInputStream("src/puzzle/pt-PT-AO.dic"), "UTF-8"));
+				new InputStreamReader(new FileInputStream(DIC), "UTF-8"));
 
 		String line = myBuffer.readLine();
 
@@ -70,7 +70,7 @@ extends java.lang.Object {
 	public static void main(String[] args) throws IOException {
 		
         BufferedReader myBuffer = new BufferedReader(new InputStreamReader(
-          new FileInputStream("src/puzzle/pt-PT-AO.dic"), "UTF-8"));
+          new FileInputStream(DIC), "UTF-8"));
          
         String line = myBuffer.readLine();
         
@@ -90,7 +90,7 @@ extends java.lang.Object {
         myBuffer.close();
         
         Trie t = parseDictionary();
-        Node n = t.searchNode("PILA");
+        Node n = t.searchNode("ROAS");
         System.out.println("Word: " + n.isWord);
         System.out.println("Leaf: " + n.isLeaf());
         

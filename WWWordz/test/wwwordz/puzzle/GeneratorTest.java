@@ -4,6 +4,7 @@ package wwwordz.puzzle;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,9 +37,10 @@ public class GeneratorTest {
 	 * Test repeated puzzle generation
 	 * 1) all different puzzles
 	 * 2) reasonable number of solutions 
+	 * @throws IOException 
 	 */
 	@Test
-	public void testGenerate() {
+	public void testGenerate() throws IOException {
 		
 		Set<Table> tables = new HashSet<>();
 		
@@ -78,9 +80,10 @@ public class GeneratorTest {
 	
 	/**
 	 * Check solutions of given table
+	 * @throws IOException 
 	 */
 	@Test
-	public void solutions() {
+	public void solutions() throws IOException {
 		
 		assertEquals(0,		generator.getSolutions(new Table()).size(),
 				"Empty table should have no solutions");

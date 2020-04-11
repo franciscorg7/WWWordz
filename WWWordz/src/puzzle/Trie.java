@@ -2,7 +2,9 @@ package puzzle;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 
 public class Trie 
@@ -115,17 +117,65 @@ implements java.lang.Iterable<String>{
 		private Thread thread;
 		
 		public NodeIterator() {
+			thread = new Thread(this, "Node Iterator");
+			thread.start();
+		}
+		
+		private void handshake() {
+			notify();
+            try {
+                wait();
+            } catch (InterruptedException cause) {
+                throw new RuntimeException("Unexpected interruption while waiting",cause);
+            }
 		}
 		
 		public boolean hasNext() {
-			return this.terminated;
+			synchronized(this) {
+				if(!terminated) handshake();
+			}
+			
+			return nextWord != null;
 		}
 		
 		public String next() {
-			return null;
+			String word = nextWord;
+			
+			synchronized(this) {
+				nextWord = null;
+			}
+			
+			return word;
 		}
 		
+		private void visitValues(Node node) {
+			
+			HashMap<Character, Node> children = node.children;
+            
+			if(children != null) {
+            	Iterator<Entry<Character, Node>> it = children.entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry<Character, Node> pair = (Map.Entry<Character, Node>)it.next();
+                    visitValues(pair.getValue());
+                    synchronized (this) {
+                        if(nextWord != null) handshake();
+                        nextWord = node.val + String.valueOf(pair.getKey());
+                        handshake();
+                    }
+                }
+			}
+        }
+		
 		public void run() {
+			
+			terminated = false;
+			
+			visitValues(root);
+			
+			synchronized (this) {
+                terminated = true;
+                handshake();
+            }
 		}
 	}
 	

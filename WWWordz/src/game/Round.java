@@ -17,15 +17,25 @@ extends java.lang.Object {
 	private Date ranking;
 	private Date report;
 	private Map<String, Player> roundPlayers;
-	
+	public static Date date=new Date();
 	public Round() {
 		
 	}
 	
 	public static long getJoinStageDuration() {
+		Date datejoin=new Date();
+		boolean x,y;
+		x = datejoin.after(date);
+		y = datejoin.before(date);
+		System.out.println(date.getTime());
+		System.out.println(datejoin.getTime());
 		return 0;
 	}
-	
+	/*
+	 * return join.getTime();
+	 *  ou por tudo a static dada as diferenças de tipos , confuso ///
+	 * 
+*/	
 	public static long getPlayerStageDuration() {
 		return 0;
 	}
@@ -51,6 +61,7 @@ extends java.lang.Object {
 	}
 	
 	public long register(String nick, String password) throws WWWordzException {
+		
 		return 0;
 	}
 	
@@ -71,6 +82,11 @@ extends java.lang.Object {
 	}
 	
 	public static void setReportsStageDuration(long reportStageDuration) {
+		
+	}
+	
+	public static void main(String[] args) {
+		getJoinStageDuration();
 		
 	}
 }

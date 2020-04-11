@@ -89,7 +89,7 @@ public class Generator extends java.lang.Object {
 		System.out.println(puzzle.getTable().toString());
 		List<Solution> solutions = getSolutions(puzzle.getTable());
 		for(Solution sol : solutions) {
-			System.out.println(sol.getWord());
+			System.out.println(sol.getWord()); // lol
 		}
 	}
 

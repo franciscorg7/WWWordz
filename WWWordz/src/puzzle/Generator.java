@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import puzzle.Trie.Node;
 import shared.Puzzle;
 import shared.Puzzle.Solution;
 import shared.Table;

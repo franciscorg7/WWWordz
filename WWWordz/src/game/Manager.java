@@ -1,11 +1,13 @@
 package game;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 
 import puzzle.Dictionary;
 import shared.Puzzle;
 import shared.Rank;
+import shared.Table;
 import shared.WWWordzException;
 
 public class Manager {
@@ -23,7 +25,8 @@ public class Manager {
 	}
 	
 	public Puzzle getPuzzle() throws WWWordzException{
-		return null;
+		Puzzle puzzle = new Puzzle();
+		return puzzle;
 	}
 	
 	public List<Rank> getRanking() throws WWWordzException{
@@ -31,10 +34,13 @@ public class Manager {
 	}
 	
 	public long register(String nick, String password) throws WWWordzException{
+		Player player= new Player(nick,password);
+		
 		return 0;
 	}
 	
 	public void setPoints(String nick, int points) throws WWWordzException{
+		
 		
 	}
 	

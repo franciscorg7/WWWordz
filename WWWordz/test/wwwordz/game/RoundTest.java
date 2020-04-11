@@ -15,6 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import game.Round;
 import wwwordz.TestData;
 import wwwordz.shared.Puzzle;
 import wwwordz.shared.Rank;
@@ -31,7 +32,7 @@ public class RoundTest extends TestData {
 	/**
 	 * A round to test
 	 */
-	wwwordz.game.Round round;
+	Round round;
 
 	
 	/**
@@ -42,7 +43,7 @@ public class RoundTest extends TestData {
 		Round.setJoinStageDuration(STAGE_DURATION);
 		Round.setPlayStageDuration(STAGE_DURATION);
 		Round.setReportStageDuration(STAGE_DURATION);
-		Round.setRankingStageSuration(STAGE_DURATION);
+		Round.setRankingStageDuration(STAGE_DURATION);
 	}
 	
 	/**

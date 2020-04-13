@@ -15,11 +15,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import game.Players;
 import game.Round;
 import wwwordz.TestData;
-import wwwordz.shared.Puzzle;
-import wwwordz.shared.Rank;
-import wwwordz.shared.WWWordzException;
+import shared.Puzzle;
+import shared.Rank;
+import shared.WWWordzException;
 
 @DisplayName("Round")
 public class RoundTest extends TestData {
@@ -61,7 +62,7 @@ public class RoundTest extends TestData {
 	@Test
 	@DisplayName("Duration")
 	public void getRoundDuration() {
-		assertTrue(4*STAGE_DURATION == Round.getRoundDuration(),"Duration is 3 stages");
+		assertTrue(4*STAGE_DURATION == Round.getRoundStageDuration(),"Duration is 3 stages");
 	}
 	
 	/**
@@ -83,7 +84,7 @@ public class RoundTest extends TestData {
 		
 		Thread.sleep(SLACK);
 		
-		assertTrue(round.getTimetoNextPlay() > Round.getRoundDuration() - SLACK,
+		assertTrue(round.getTimetoNextPlay() > Round.getRoundStageDuration() - SLACK,
 				"Must wait till next round");
 		
 	}

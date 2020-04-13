@@ -8,14 +8,15 @@ implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private int accumulated;
-	private String nick;
-	private String password;
-	private int points;
+	int accumulated;
+	String nick;
+	String password;
+	int points;
 	
 	public Player(String nick, String password) {
 		this.setNick(nick);
 		this.setPassword(password);
+		
 	}
 
 	public int getAccumulated() {

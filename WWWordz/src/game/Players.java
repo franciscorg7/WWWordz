@@ -1,7 +1,7 @@
 package game;
 
 import java.io.File;
-
+import game.Player;
 import shared.WWWordzException;
 
 public class Players 
@@ -19,12 +19,14 @@ implements java.io.Serializable {
 		
 	}
 	
-	public void cleanup() {
+	@SuppressWarnings("unused")
+	private void cleanup() {
 		
 	}
 	
 	public static File getHome() {
-		return null;
+		File file = new File(System.getProperty("user.home"));
+		return file;
 	}
 	
 	public static Players getInstance() {
@@ -35,19 +37,28 @@ implements java.io.Serializable {
 	}
 	
 	public Player getPlayer(String nick) {
-		return null;
+		Player player = new Player(nick);
+		return player;
 	}
 	
 	public void resetPoints(String nick) throws WWWordzException {
+		player.points=0;
 		
 	}
 	
 	public static void setHome(File home) {
+		home.mkdir();
 		
 	}
 	
 	public boolean verify(String nick, String password) {
+		String pass = nick.getPassword();
 		return false;
+	}
+	public static void main(String[] args) {
+		File file= getHome();
+		System.out.println(file);
+		setHome(file);
 	}
 
 }

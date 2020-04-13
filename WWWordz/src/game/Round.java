@@ -3,41 +3,35 @@ package game;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
+import shared.Configs;
 import shared.Puzzle;
 import shared.Rank;
 import shared.WWWordzException;
 
 public class Round
 extends java.lang.Object {
-	private Date end;
-	private Date join;
-	private Date play;
-	private Puzzle puzzle;
-	private Date ranking;
-	private Date report;
-	private Map<String, Player> roundPlayers;
-	public static Date date=new Date();
+	 static Date end ;
+	public  static Date join;
+	 public static Date play;
+	 Puzzle puzzle;
+	public static Date ranking;
+	 public static Date report;
+	 Map<String, Player> roundPlayers;
 	public Round() {
 		
 	}
 	
-	public static long getJoinStageDuration() {
-		Date datejoin=new Date();
-		boolean x,y;
-		x = datejoin.after(date);
-		y = datejoin.before(date);
-		System.out.println(date.getTime());
-		System.out.println(datejoin.getTime());
-		return 0;
+	public static long getJoinStageDuration(){
+		return Configs.JOIN_STAGE_DURATION;
+		
 	}
 	/*
 	 * return join.getTime();
 	 *  ou por tudo a static dada as diferenças de tipos , confuso ///
 	 * 
 */	
-	public static long getPlayerStageDuration() {
-		return 0;
+	public static long getPlayStageDuration() {
+		return Configs.PLAY_STAGE_DURATION;
 	}
 	
 	public Puzzle getPuzzle() throws WWWordzException {
@@ -49,31 +43,35 @@ extends java.lang.Object {
 	}
 	
 	public static long getRankingStageDuration() {
-		return 0;
+		return Configs.RANKING_STAGE_DURATION;
 	}
 	
 	public static long getRoundStageDuration() {
 		return 0;
 	}
 	
-	public long getTimeNextPlay() {
+	public long getTimetoNextPlay() {
 		return 0;
 	}
 	
 	public long register(String nick, String password) throws WWWordzException {
+		Player player=new Player(nick,password);
 		
 		return 0;
 	}
 	
 	public static void setJoinStageDuration(long joinStageDuration) {
+	
 		
 	}
 	
-	public static void setPlayerStageDuration(long playStageDuration) {
+	public static void setPlayStageDuration(long playStageDuration) {
+		
 		
 	}
 	
 	public void setPoints(String nick, int points) throws WWWordzException {
+		
 		
 	}
 	
@@ -81,7 +79,7 @@ extends java.lang.Object {
 		
 	}
 	
-	public static void setReportsStageDuration(long reportStageDuration) {
+	public static void setReportStageDuration(long reportStageDuration) {
 		
 	}
 	

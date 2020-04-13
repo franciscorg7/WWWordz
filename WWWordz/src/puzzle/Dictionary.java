@@ -67,6 +67,11 @@ extends java.lang.Object {
 		return trie;
 	}
 	
+	public Search startSearch() {
+		Search search = new Search(this.trie.startSearch());
+		return search;
+	}
+	
 	public static void main(String[] args) throws IOException {
 		
         BufferedReader myBuffer = new BufferedReader(new InputStreamReader(

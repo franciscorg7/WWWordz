@@ -80,22 +80,27 @@ public class Generator extends java.lang.Object {
 			List<Cell> path = new ArrayList<Cell>();
 			String word = "";
 			Search search = dic.startSearch();
-			
-			while(search.continueWith(c.getLetter())) {
-				
-			}
 
-			if (dic.trie.searchNode(c.toString()) != null) {
+			if (search.continueWith(c.getLetter())) {
 				word += c.getLetter();
+				search = new Search(dic.trie.searchNode(word));
 				Solution sol = new Solution(word, path);
-				solutions.add(sol);
+				if (search.node.isWord)
+					solutions.add(sol);
 				visited.add(c);
 				List<Cell> neighbors = table.getNeighbors(c);
-
+				
 				for (Cell n : neighbors) {
+					Search auxSearch = new Search(search);
 					String aux = word;
-					if (!visited.contains(n)) {
-
+					if (!visited.contains(n) && auxSearch.continueWith(n.getLetter())) {
+						aux += n.getLetter();
+						auxSearch = new Search(dic.trie.searchNode(aux));
+						visited.add(n);
+						path.add(n);
+						sol = new Solution(aux, path);
+						if (auxSearch.node.isWord)
+							solutions.add(sol);
 					}
 				}
 			}

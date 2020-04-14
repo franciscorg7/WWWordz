@@ -46,8 +46,8 @@ implements java.io.Serializable{
 		 */
 		private static final long serialVersionUID = 1L;
 		
-		private List<Cell> cells;
-		private String word;
+		List<Cell> cells;
+		String word;
 		
 		public Solution() {
 		}

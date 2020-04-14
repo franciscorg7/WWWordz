@@ -44,9 +44,8 @@ implements java.lang.Iterable<String>{
 		root.put(word, 0);
 	}
 	
-	public Search startSearch() {
-		Search search = new Search(root);
-		return search;
+	public Search startSearch() {	
+		return new Search(root);
 	}
 	
 	// Check if word exists in the trie
@@ -74,18 +73,15 @@ implements java.lang.Iterable<String>{
 	
 	public class Node{
 		char val;
-		String wordVal;
 		HashMap<Character, Node> children = new HashMap<Character, Node>();
 		Node parent;
 		boolean isWord;
 		
 		public Node() {
-			this.wordVal = "";
 		}
 		
 		public Node(char c) {
 			this.val = c;
-			this.wordVal = Character.toString(c);
 		}
 		
 		// Check if node is a leaf
@@ -111,7 +107,6 @@ implements java.lang.Iterable<String>{
 			else {
 				Node child = new Node();
 				child.val = word.charAt(level);
-				child.wordVal = this.wordVal + Character.toString(word.charAt(level));
 				this.children.put(word.charAt(level), child);
 				child.put(word, level+1);
 			}
@@ -157,19 +152,22 @@ implements java.lang.Iterable<String>{
 			return word;
 		}
 		
-		private void visitValues(Node node) {
+		private void visitValues(Node node, String curWord) {
 			
 			if(node.isWord == true) {
 				synchronized(this) {
 					if(nextWord != null)
 						handshake();
-					nextWord = node.wordVal;
+					nextWord = curWord;
 					handshake();
 				}
 			}
 			
 			for(Node n : node.children.values()) {
-				visitValues(n);
+				char letter = n.val;
+				String word = curWord;
+				word += letter;
+				visitValues(n, word);
 			}
         }
 		
@@ -177,7 +175,7 @@ implements java.lang.Iterable<String>{
 			
 			terminated = false;
 			
-			visitValues(root);
+			visitValues(root, "");
 			
 			synchronized (this) {
                 terminated = true;
@@ -188,6 +186,7 @@ implements java.lang.Iterable<String>{
 	
 	public static class Search	
 	extends java.lang.Object {
+		
 		Node node;
 		
 		public Search(Node node) {
@@ -198,12 +197,12 @@ implements java.lang.Iterable<String>{
 			this.node = search.node;
 		}
 		
-		private boolean continueWith(char letter) {
-			if(this.node.children != null) return true;
+		boolean continueWith(char letter) {
+			if(this.node.children.get(letter) != null) return true;
 			return false;
 		}
 		
-		private boolean isWord() {
+		boolean isWord() {
 			return this.node.isWord; 
 		}
 		

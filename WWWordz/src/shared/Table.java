@@ -163,6 +163,14 @@ public class Table extends java.lang.Object implements java.lang.Iterable<Table.
 		public char getLetter() {
 			return this.letter;
 		}
+		
+		public int getRow() {
+			return this.row;
+		}
+		
+		public int getCol() {
+			return this.column;
+		}
 
 		@Override
 		public int hashCode() {

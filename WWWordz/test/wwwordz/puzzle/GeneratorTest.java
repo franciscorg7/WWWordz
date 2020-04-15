@@ -57,9 +57,10 @@ public class GeneratorTest {
 
 	/**
 	 * Check random puzzles and number of solutions
+	 * @throws IOException 
 	 */
 	@Test
-	public void testRandom() {
+	public void testRandom() throws IOException {
 		
 		int sum = 0, count = 0;
 		for(int i=0; i<REPETITIONS; i++) {

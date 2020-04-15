@@ -3,6 +3,9 @@ package game;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import org.junit.jupiter.api.BeforeAll;
+
 import shared.Configs;
 import shared.Puzzle;
 import shared.Rank;
@@ -18,6 +21,11 @@ extends java.lang.Object {
 	 public static Date report;
 	 Map<String, Player> roundPlayers;
 	public Round() {
+		
+	}
+	@BeforeAll
+	public static void init() {
+		setjoin
 		
 	}
 	
@@ -37,6 +45,7 @@ extends java.lang.Object {
 	public Puzzle getPuzzle() throws WWWordzException {
 		return this.puzzle;
 	}
+	
 	
 	public List<Rank> getRanking() throws WWWordzException {
 		return null;
@@ -61,6 +70,7 @@ extends java.lang.Object {
 	}
 	
 	public static void setJoinStageDuration(long joinStageDuration) {
+		
 	
 		
 	}

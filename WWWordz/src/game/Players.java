@@ -1,6 +1,8 @@
 package game;
 
 import java.io.File;
+import java.util.HashMap;
+
 import game.Player;
 import shared.WWWordzException;
 
@@ -12,11 +14,15 @@ implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	private HashMap<String,Player> theplayers;
 	private static Players single_instance = null;
-	
+	private Players() {
+		theplayers = new HashMap<>();
+	}
 	public void addPoints(String nick, int points) throws WWWordzException {
-		
+		Player player = theplayers.get(nick);
+		int cur =player.getPoints();
+		player.setPoints(points + cur);
 	}
 	
 	@SuppressWarnings("unused")
@@ -25,7 +31,7 @@ implements java.io.Serializable {
 	}
 	
 	public static File getHome() {
-		File file = new File(System.getProperty("user.home"));
+		File homedir = new File(System.getProperty("user.dir"));
 		return file;
 	}
 	
@@ -37,28 +43,31 @@ implements java.io.Serializable {
 	}
 	
 	public Player getPlayer(String nick) {
-		Player player = new Player(nick);
+		Player player = theplayers.get(nick);
 		return player;
 	}
 	
 	public void resetPoints(String nick) throws WWWordzException {
-		player.points=0;
+		Player player = theplayers.get(nick);
+		player.setPoints(0);
 		
 	}
 	
 	public static void setHome(File home) {
-		home.mkdir();
 		
 	}
-	
-	public boolean verify(String nick, String password) {
-		String pass = nick.getPassword();
-		return false;
+	/**truee if passwords match */
+	public  boolean verify(String nick, String password) {
+		return getPlayer(nick).getPassword().equals(password);
 	}
 	public static void main(String[] args) {
-		File file= getHome();
-		System.out.println(file);
-		setHome(file);
+		Player player = new Player("ola","asd");
+	//	Boolean verify =verify("ola","asd");
+	//System.out.println(verify);
+		/** cant test**/
+		
+		/**System.out.println(file);
+		setHome(file);**/
 	}
 
 }

@@ -35,7 +35,7 @@ implements java.io.Serializable {
 		this.nick = nick;
 	}
 
-	public String getPassword() {
+	public  String getPassword() {
 		return password;
 	}
 

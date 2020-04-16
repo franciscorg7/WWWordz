@@ -95,7 +95,7 @@ extends java.lang.Object {
         myBuffer.close();
         
         Trie t = parseDictionary();
-        Node n = t.searchNode("ROAS");
+        Node n = t.searchNode("TOSTE");
         System.out.println("Word: " + n.isWord);
         System.out.println("Leaf: " + n.isLeaf());
         

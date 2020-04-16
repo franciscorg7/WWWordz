@@ -51,10 +51,14 @@ public class Generator extends java.lang.Object {
 
 		puzzle.setTable(table);
 
+		List<Solution> sols = getSolutions(table);
+
+		puzzle.setSolutions(sols);
+
 		return puzzle;
 	}
 
-	public static Puzzle random() {
+	public static Puzzle random() throws IOException {
 		Random rnd = new Random();
 		Puzzle puzzle = new Puzzle();
 		Table table = puzzle.getTable();
@@ -65,7 +69,11 @@ public class Generator extends java.lang.Object {
 			cell.setLetter(Character.toUpperCase(c));
 		}
 
-		// if(getSolutions(puzzle.table).size == 0) random();
+		List<Solution> sols = getSolutions(table);
+		if (sols.size() == 0)
+			random();
+
+		puzzle.setSolutions(sols);
 
 		return puzzle;
 	}
@@ -78,33 +86,53 @@ public class Generator extends java.lang.Object {
 			Cell c = it.next();
 			List<Cell> visited = new ArrayList<Cell>();
 			List<Cell> path = new ArrayList<Cell>();
-			String word = "";
 			Search search = dic.startSearch();
-
+			String word = "";
+			
 			if (search.continueWith(c.getLetter())) {
 				word += c.getLetter();
+				visited.add(c);
+				path.add(c);
 				search = new Search(dic.trie.searchNode(word));
 				Solution sol = new Solution(word, path);
-				if (search.node.isWord)
+				if (search.node.isWord && !solutions.contains(sol)) {
 					solutions.add(sol);
-				visited.add(c);
-				List<Cell> neighbors = table.getNeighbors(c);
-				
-				for (Cell n : neighbors) {
-					Search auxSearch = new Search(search);
-					String aux = word;
-					if (!visited.contains(n) && auxSearch.continueWith(n.getLetter())) {
-						aux += n.getLetter();
-						auxSearch = new Search(dic.trie.searchNode(aux));
-						visited.add(n);
-						path.add(n);
-						sol = new Solution(aux, path);
-						if (auxSearch.node.isWord)
-							solutions.add(sol);
-					}
 				}
 			}
+			
+			solutions = createSol(solutions, dic, table, c, word, visited, path, search);
 		}
+
+		return solutions;
+	}
+
+	public static List<Solution> createSol(List<Solution> solutions, Dictionary dic, Table table, Cell c, String word,
+			List<Cell> visited, List<Cell> path, Search search) {
+
+			List<Cell> neighbors = table.getNeighbors(c);
+
+			for (Cell n : neighbors) {
+				List<Cell> auxPath = path;
+				Search auxSearch = new Search(search);
+				String aux = word;
+				if (!visited.contains(n) && auxSearch.continueWith(n.getLetter())) {
+					aux += n.getLetter();
+					auxSearch = new Search(dic.trie.searchNode(aux));
+					visited.add(n);
+					if (auxSearch.node.isWord) {
+						auxPath.add(n);
+						Solution sol = new Solution(aux, auxPath);
+						
+						if (!solutions.contains(sol))
+							solutions.add(sol);
+						createSol(solutions, dic, table, n, aux, visited, auxPath, auxSearch);
+					}
+					
+					else {
+						createSol(solutions, dic, table, n, aux, visited, path, auxSearch);
+					}	
+				}
+			}
 
 		return solutions;
 
@@ -112,11 +140,15 @@ public class Generator extends java.lang.Object {
 
 	public static void main(String[] args) throws IOException {
 
-		Puzzle puzzle = generate();
+		Puzzle puzzle = random();
 		System.out.println(puzzle.getTable().toString());
 		List<Solution> solutions = getSolutions(puzzle.getTable());
 		for (Solution sol : solutions) {
-			System.out.println(sol.getWord()); // lol
+			System.out.println(sol.getWord());
+			for (Cell c : sol.getCells()) {
+				System.out.print("(" + c.getRow() + ", " + c.getCol() + ")");
+				System.out.println();
+			}
 		}
 	}
 

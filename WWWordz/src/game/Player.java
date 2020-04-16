@@ -24,7 +24,7 @@ implements java.io.Serializable {
 	}
 
 	public void setAccumulated(int accumulated) {
-		this.accumulated = accumulated;
+		this.accumulated += accumulated;
 	}
 
 	public String getNick() {

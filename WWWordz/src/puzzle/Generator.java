@@ -50,7 +50,7 @@ public class Generator extends java.lang.Object {
 		}
 
 		puzzle.setTable(table);
-		
+
 		List<Solution> sols = getSolutions(table);
 
 		puzzle.setSolutions(sols);
@@ -87,9 +87,19 @@ public class Generator extends java.lang.Object {
 			List<Cell> visited = new ArrayList<Cell>();
 			List<Cell> path = new ArrayList<Cell>();
 			Search search = dic.startSearch();
-			visited.add(c);
-			path.add(c);
 			String word = "";
+			
+			if (search.continueWith(c.getLetter())) {
+				word += c.getLetter();
+				visited.add(c);
+				path.add(c);
+				search = new Search(dic.trie.searchNode(word));
+				Solution sol = new Solution(word, path);
+				if (search.node.isWord && !solutions.contains(sol)) {
+					solutions.add(sol);
+				}
+			}
+			
 			solutions = createSol(solutions, dic, table, c, word, visited, path, search);
 		}
 
@@ -98,16 +108,6 @@ public class Generator extends java.lang.Object {
 
 	public static List<Solution> createSol(List<Solution> solutions, Dictionary dic, Table table, Cell c, String word,
 			List<Cell> visited, List<Cell> path, Search search) {
-
-		if (search.continueWith(c.getLetter())) {
-			word += c.getLetter();
-			visited.add(c);
-			search = new Search(dic.trie.searchNode(word));
-			Solution sol = new Solution(word, path);
-			if (search.node.isWord && !solutions.contains(sol)) {
-				solutions.add(sol);
-				path = new ArrayList<Cell>();
-			}
 
 			List<Cell> neighbors = table.getNeighbors(c);
 
@@ -119,17 +119,20 @@ public class Generator extends java.lang.Object {
 					aux += n.getLetter();
 					auxSearch = new Search(dic.trie.searchNode(aux));
 					visited.add(n);
-					if (auxSearch.node.isWord && !solutions.contains(sol)) {
+					if (auxSearch.node.isWord) {
 						auxPath.add(n);
-						sol = new Solution(aux, auxPath);
-						solutions.add(sol);
+						Solution sol = new Solution(aux, auxPath);
+						
+						if (!solutions.contains(sol))
+							solutions.add(sol);
+						createSol(solutions, dic, table, n, aux, visited, auxPath, auxSearch);
 					}
 					
-					createSol(solutions, dic, table, n, aux, visited, auxPath, auxSearch);
+					else {
+						createSol(solutions, dic, table, n, aux, visited, path, auxSearch);
+					}	
 				}
-				
 			}
-		}
 
 		return solutions;
 

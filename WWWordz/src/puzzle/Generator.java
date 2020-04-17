@@ -3,7 +3,6 @@ package puzzle;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -49,16 +48,19 @@ public class Generator extends java.lang.Object {
 			}
 		}
 
-		puzzle.setTable(table);
-
-		List<Solution> sols = getSolutions(table);
-
-		puzzle.setSolutions(sols);
+		
+		 puzzle.setTable(table);
+		  
+		 List<Solution> sols = getSolutions(table);
+		  
+		 puzzle.setSolutions(sols);
+		 
 
 		return puzzle;
 	}
 
 	public static Puzzle random() throws IOException {
+		
 		Random rnd = new Random();
 		Puzzle puzzle = new Puzzle();
 		Table table = puzzle.getTable();
@@ -69,86 +71,86 @@ public class Generator extends java.lang.Object {
 			cell.setLetter(Character.toUpperCase(c));
 		}
 
-		List<Solution> sols = getSolutions(table);
-		if (sols.size() == 0)
-			random();
-
-		puzzle.setSolutions(sols);
+		
+		 List<Solution> sols = getSolutions(table); if (sols.size() == 0) random();
+		  
+		 puzzle.setSolutions(sols);
+		 
 
 		return puzzle;
 	}
 
 	public static List<Solution> getSolutions(Table table) throws IOException {
-		List<Solution> solutions = new LinkedList<>();
+		List<Solution> solutions = new ArrayList<>();
 		Dictionary dic = Dictionary.getInstance();
 
 		for (Iterator<Cell> it = table.iterator(); it.hasNext();) {
-			Cell c = it.next();
-			List<Cell> visited = new ArrayList<Cell>();
-			List<Cell> path = new ArrayList<Cell>();
+			Cell cell = it.next();
 			Search search = dic.startSearch();
-			String word = "";
-			
-			if (search.continueWith(c.getLetter())) {
-				word += c.getLetter();
-				visited.add(c);
-				path.add(c);
-				search = new Search(dic.trie.searchNode(word));
-				Solution sol = new Solution(word, path);
-				if (search.node.isWord && !solutions.contains(sol)) {
-					solutions.add(sol);
-				}
-			}
-			
-			solutions = createSol(solutions, dic, table, c, word, visited, path, search);
+			List<Cell> used = new ArrayList<>();
+			StringBuffer prefix = new StringBuffer();
+			getSolutions(dic, table, cell, search, prefix, used, solutions);
 		}
 
 		return solutions;
 	}
 
-	public static List<Solution> createSol(List<Solution> solutions, Dictionary dic, Table table, Cell c, String word,
-			List<Cell> visited, List<Cell> path, Search search) {
+	private static void getSolutions(Dictionary dic, Table table, Cell cell, Search search, StringBuffer prefix, List<Cell> visited,
+			List<Solution> solutions) {
 
-			List<Cell> neighbors = table.getNeighbors(c);
+		if (visited.contains(cell)) {
+			return;
+		}
 
-			for (Cell n : neighbors) {
-				List<Cell> auxPath = path;
-				Search auxSearch = new Search(search);
-				String aux = word;
-				if (!visited.contains(n) && auxSearch.continueWith(n.getLetter())) {
-					aux += n.getLetter();
-					auxSearch = new Search(dic.trie.searchNode(aux));
-					visited.add(n);
-					if (auxSearch.node.isWord) {
-						auxPath.add(n);
-						Solution sol = new Solution(aux, auxPath);
-						
-						if (!solutions.contains(sol))
-							solutions.add(sol);
-						createSol(solutions, dic, table, n, aux, visited, auxPath, auxSearch);
-					}
-					
-					else {
-						createSol(solutions, dic, table, n, aux, visited, path, auxSearch);
-					}	
-				}
-			}
+		visited.add(cell);
+		
+		if (!search.continueWith(cell.getLetter()))
+			return;
 
-		return solutions;
+		prefix.append(cell.getLetter());
+		
+		String word = prefix.toString();
+		if (search.isWord() && word.length() >= 3 && !contains(solutions, word))
+			solutions.add(new Solution(word, visited));
 
+		List<Cell> neighbors = table.getNeighbors(cell);
+
+		for (Cell neigbor : neighbors) {
+			List<Cell> usedCopy = new ArrayList<Cell>(visited);
+			StringBuffer prefixCopy = new StringBuffer(prefix);
+			Search searchCopy = new Search(search);
+			getSolutions(dic, table, neigbor, searchCopy, prefixCopy, usedCopy, solutions);
+		}
+	}
+
+	/**
+	 * Check if given list of solutions already contains a word
+	 * 
+	 * @param solutions
+	 * @param word
+	 * @return
+	 */
+	private static boolean contains(List<Solution> solutions, String word) {
+		for (Solution solution : solutions)
+			if (solution.getWord().equals(word))
+				return true;
+		return false;
 	}
 
 	public static void main(String[] args) throws IOException {
 
-		Puzzle puzzle = random();
+		Puzzle puzzle = generate();
+		
 		System.out.println(puzzle.getTable().toString());
 		List<Solution> solutions = getSolutions(puzzle.getTable());
 		for (Solution sol : solutions) {
 			System.out.println(sol.getWord());
+
 			for (Cell c : sol.getCells()) {
 				System.out.print("(" + c.getRow() + ", " + c.getCol() + ")");
 				System.out.println();
 			}
+
 		}
 	}
 

@@ -95,11 +95,15 @@ extends java.lang.Object {
         myBuffer.close();
         
         Trie t = parseDictionary();
-        Node n = t.searchNode("TOSTE");
-        System.out.println("Word: " + n.isWord);
-        System.out.println("Leaf: " + n.isLeaf());
+        Node n = t.searchNode("SAN");
+        if(n == null) System.out.println("No word.");
+        else {
+        	System.out.println("Word: " + n.isWord);
+            System.out.println("Leaf: " + n.isLeaf());
+            
+            String test = t.getRandomLargeWord();
+            System.out.println(test);
+        }
         
-        String test = t.getRandomLargeWord();
-        System.out.println(test);
 	}
 }

@@ -16,7 +16,6 @@ implements java.io.Serializable {
 	public Player(String nick, String password) {
 		this.setNick(nick);
 		this.setPassword(password);
-		
 	}
 
 	public int getAccumulated() {
@@ -24,7 +23,7 @@ implements java.io.Serializable {
 	}
 
 	public void setAccumulated(int accumulated) {
-		this.accumulated += accumulated;
+		this.accumulated = accumulated;
 	}
 
 	public String getNick() {
@@ -49,6 +48,7 @@ implements java.io.Serializable {
 
 	public void setPoints(int points) {
 		this.points = points;
+		this.accumulated +=points;
 	}
 
 }

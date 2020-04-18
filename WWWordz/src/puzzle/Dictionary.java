@@ -19,7 +19,10 @@ extends java.lang.Object {
 	private static final String DIC = "src/puzzle/pt-PT-AO.dic";
 	private static Dictionary single_instance = null;
 	
-	// Makes sure it only creates one and only instance of Dictionary
+	/**
+	 * Makes sure there is one and only instance of Dictionary
+	 * @return single instance of Dictionary
+	 */
 	public static Dictionary getInstance() throws IOException {
 		
 		if(single_instance == null) 
@@ -37,6 +40,11 @@ extends java.lang.Object {
 		
 	}
 	
+	/**
+	 * Read all the words from dictionary file and places them into the trie
+	 * Makes sure that every word is capitalized and has its accent marks removed
+	 * @return Parsed dictionary in trie from
+	 */
 	public static Trie parseDictionary() throws IOException {
 		
 		Trie trie = new Trie();
@@ -95,11 +103,15 @@ extends java.lang.Object {
         myBuffer.close();
         
         Trie t = parseDictionary();
-        Node n = t.searchNode("TOSTE");
-        System.out.println("Word: " + n.isWord);
-        System.out.println("Leaf: " + n.isLeaf());
+        Node n = t.searchNode("SAN");
+        if(n == null) System.out.println("No word.");
+        else {
+        	System.out.println("Word: " + n.isWord);
+            System.out.println("Leaf: " + n.isLeaf());
+            
+            String test = t.getRandomLargeWord();
+            System.out.println(test);
+        }
         
-        String test = t.getRandomLargeWord();
-        System.out.println(test);
 	}
 }

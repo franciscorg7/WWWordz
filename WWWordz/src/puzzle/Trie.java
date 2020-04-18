@@ -198,8 +198,15 @@ implements java.lang.Iterable<String>{
 		}
 		
 		boolean continueWith(char letter) {
-			if(this.node.children.get(letter) != null) return true;
-			return false;
+			
+			if(node.children == null)
+				return false;
+			
+			if(node.children.containsKey(letter))
+				this.node = this.node.children.get(letter);
+			else node = null;
+			
+			return (node == null) ? false : true;
 		}
 		
 		boolean isWord() {

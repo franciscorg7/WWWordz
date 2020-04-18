@@ -17,6 +17,10 @@ public class Generator extends java.lang.Object {
 	public Generator() {
 	}
 
+	/**
+	 * Fill the puzzle table with large random words
+	 * @return Puzzle (well generated)
+	 */
 	public static Puzzle generate() throws IOException {
 		Puzzle puzzle = new Puzzle();
 		Table table = puzzle.getTable();
@@ -32,10 +36,10 @@ public class Generator extends java.lang.Object {
 				List<Cell> neighbors = table.getNeighbors(c);
 
 				for (Cell neighbor : neighbors) {
-
+					
 					if (index == word.length() - 1)
 						break;
-
+					
 					if (emptyCells.contains(neighbor)) {
 						neighbor.setLetter(word.charAt(index));
 						table.editCell(neighbor);
@@ -48,19 +52,21 @@ public class Generator extends java.lang.Object {
 			}
 		}
 
-		
-		 puzzle.setTable(table);
-		  
-		 List<Solution> sols = getSolutions(table);
-		  
-		 puzzle.setSolutions(sols);
-		 
+		puzzle.setTable(table);
+
+		List<Solution> sols = getSolutions(table);
+
+		puzzle.setSolutions(sols);
 
 		return puzzle;
 	}
-
+	
+	/**
+	 * Fill the puzzle table with random letters
+	 * Before returning, makes sure that puzzle has at least 5 solutions
+	 * @return Puzzle (randomized)
+	 */
 	public static Puzzle random() throws IOException {
-		
 		Random rnd = new Random();
 		Puzzle puzzle = new Puzzle();
 		Table table = puzzle.getTable();
@@ -71,15 +77,19 @@ public class Generator extends java.lang.Object {
 			cell.setLetter(Character.toUpperCase(c));
 		}
 
-		
-		 List<Solution> sols = getSolutions(table); if (sols.size() == 0) random();
-		  
-		 puzzle.setSolutions(sols);
-		 
+		List<Solution> sols = getSolutions(table);
+		if (sols.size() < 5)
+			random();
+
+		puzzle.setSolutions(sols);
 
 		return puzzle;
 	}
-
+	
+	/**
+	 * Get all the possible solutions in a puzzle table
+	 * Makes use of auxiliar recursive function to be able to search for large words
+	 */
 	public static List<Solution> getSolutions(Table table) throws IOException {
 		List<Solution> solutions = new ArrayList<>();
 		Dictionary dic = Dictionary.getInstance();
@@ -88,59 +98,43 @@ public class Generator extends java.lang.Object {
 			Cell cell = it.next();
 			Search search = dic.startSearch();
 			List<Cell> used = new ArrayList<>();
-			StringBuffer prefix = new StringBuffer();
-			getSolutions(dic, table, cell, search, prefix, used, solutions);
+			String word = "";
+			getSolutions(dic, table, cell, search, word, used, solutions);
 		}
 
 		return solutions;
 	}
 
-	private static void getSolutions(Dictionary dic, Table table, Cell cell, Search search, StringBuffer prefix, List<Cell> visited,
-			List<Solution> solutions) {
+	private static void getSolutions(Dictionary dic, Table table, Cell cell, Search search, String word,
+			List<Cell> visited, List<Solution> solutions) {
 
-		if (visited.contains(cell)) {
+		if (visited.contains(cell) || !search.continueWith(cell.getLetter()))
 			return;
-		}
 
 		visited.add(cell);
-		
-		if (!search.continueWith(cell.getLetter()))
-			return;
+		word += cell.getLetter();
 
-		prefix.append(cell.getLetter());
+		Solution sol = new Solution(word, visited);
 		
-		String word = prefix.toString();
-		if (search.isWord() && word.length() >= 3 && !contains(solutions, word))
+		// Solutions must be words with at leat 3 characters and should not me considered more than once
+		// The same word can be in multiple solutions, since can exist different paths to it
+		if (word.length() >= 3 && search.isWord() && !solutions.contains(sol))
 			solutions.add(new Solution(word, visited));
 
 		List<Cell> neighbors = table.getNeighbors(cell);
 
-		for (Cell neigbor : neighbors) {
-			List<Cell> usedCopy = new ArrayList<Cell>(visited);
-			StringBuffer prefixCopy = new StringBuffer(prefix);
+		for (Cell neighbor : neighbors) {
+			String auxWord = new String(word);
+			List<Cell> auxPath = new ArrayList<Cell>(visited);
 			Search searchCopy = new Search(search);
-			getSolutions(dic, table, neigbor, searchCopy, prefixCopy, usedCopy, solutions);
+			getSolutions(dic, table, neighbor, searchCopy, auxWord, auxPath, solutions);
 		}
-	}
-
-	/**
-	 * Check if given list of solutions already contains a word
-	 * 
-	 * @param solutions
-	 * @param word
-	 * @return
-	 */
-	private static boolean contains(List<Solution> solutions, String word) {
-		for (Solution solution : solutions)
-			if (solution.getWord().equals(word))
-				return true;
-		return false;
 	}
 
 	public static void main(String[] args) throws IOException {
 
 		Puzzle puzzle = generate();
-		
+
 		System.out.println(puzzle.getTable().toString());
 		List<Solution> solutions = getSolutions(puzzle.getTable());
 		for (Solution sol : solutions) {
@@ -150,8 +144,6 @@ public class Generator extends java.lang.Object {
 				System.out.print("(" + c.getRow() + ", " + c.getCol() + ")");
 				System.out.println();
 			}
-
 		}
 	}
-
 }

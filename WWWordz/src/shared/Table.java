@@ -9,9 +9,6 @@ import java.util.LinkedList;
 
 public class Table extends java.lang.Object implements java.lang.Iterable<Table.Cell>, java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private static final int tableBeggining = 1;

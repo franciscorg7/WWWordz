@@ -206,7 +206,7 @@ implements java.lang.Iterable<String>{
 				this.node = this.node.children.get(letter);
 			else node = null;
 			
-			return node != null;
+			return (node == null) ? false : true;
 		}
 		
 		boolean isWord() {

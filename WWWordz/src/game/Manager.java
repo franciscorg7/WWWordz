@@ -1,5 +1,6 @@
 package game;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
@@ -24,28 +25,25 @@ public class Manager {
         return single_instance;
 	}
 	
-	public Puzzle getPuzzle() throws WWWordzException{
-		Puzzle puzzle = new Puzzle();
-		return puzzle;
+	public Puzzle getPuzzle() throws WWWordzException, IOException{
+		return round.getPuzzle();
 	}
 	
 	public List<Rank> getRanking() throws WWWordzException{
-		return null;
+		return round.getRanking();
 	}
 	
 	public long register(String nick, String password) throws WWWordzException{
-		Player player= new Player(nick,password);
 		
-		return 0;
+		return round.register(nick, password);
 	}
 	
 	public void setPoints(String nick, int points) throws WWWordzException{
-		
-		
+		round.setPoints(nick, points);
 	}
 	
 	public long timeToNextPlay() {
-		return 0;
+		return round.getTimetoNextPlay();
 		
 	}
 }

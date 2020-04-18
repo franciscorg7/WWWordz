@@ -13,11 +13,13 @@ implements java.io.Serializable {
 	/**
 	 * 
 	 */
+	private static final String DATA_FILE = "players.ser";
 	private static final long serialVersionUID = 1L;
-	 static HashMap<String,Player> theplayers;
 	private static Players single_instance = null;
+	private static File home = new File(System.getProperty("user.dir"));
+	private static File data = new File(home,DATA_FILE);
+	 HashMap<String, Player> theplayers = new HashMap<>();
 	private Players() {
-		theplayers = new HashMap<>();
 	}
 	public void addPoints(String nick, int points) throws WWWordzException {
 		if(theplayers.get(nick)!=null) {
@@ -30,13 +32,11 @@ implements java.io.Serializable {
 		}
 	}
 	
-	@SuppressWarnings("unused")
 	public void cleanup() {
 		theplayers.clear();
 	}
 	
 	public static File getHome() {
-		 File home= new File(System.getProperty("user.dir"));
 		return home;
 	}
 	
@@ -52,7 +52,7 @@ implements java.io.Serializable {
 		return player;
 	}
 	
-	public static void resetPoints(String nick) throws WWWordzException {
+	public void resetPoints(String nick) throws WWWordzException {
 		if(theplayers.get(nick)!=null) {
 		theplayers.get(nick).setPoints(0);
 	}
@@ -62,8 +62,8 @@ implements java.io.Serializable {
 	}
 	
 	public static void setHome(File home) {
-		  File home1= new File(System.getProperty("user.dir"));
-		  File Data = new File(home1,"Data");
+		 Players.home=home;
+		 Players.data = new File(home,DATA_FILE);
 		
 	}
 	/**truee if passwords match */
@@ -76,24 +76,6 @@ implements java.io.Serializable {
 		return getPlayer(nick).getPassword().equals(password);
 		}
 	}
-	public static void main(String[] args) throws WWWordzException {
-		Player player=new Player("ola","asd");
-		int points =100;
-		player.setPoints(points);
-		System.out.println(player.getPoints());
-		resetPoints("ola");
-		System.out.println(player.getPoints());
-		
-		
-		
-		
-		
-		//	Boolean verify =verify("ola","asd");
-	//System.out.println(verify);
-		/** cant test**/
-		
-		/**System.out.println(file);
-		setHome(file);**/
-	}
+
 
 }

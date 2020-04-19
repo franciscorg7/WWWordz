@@ -66,8 +66,6 @@ public class Players extends java.lang.Object implements java.io.Serializable {
 	}
 
 	public static void setHome(File home) {
-		File home1 = new File(System.getProperty("user.dir"));
-		File Data = new File(home1, "Data");
 
 		Players.home = home;
 		Players.data = new File(home, DATA_FILE);

@@ -64,8 +64,8 @@ public class Round extends java.lang.Object {
 		}
 
 		else if (cur.after(report))
-			throw new WWWordzException("Expected after play stage");
-
+			throw new WWWordzException("Exception expected after play stage");
+		
 		return puzzle;
 	}
 

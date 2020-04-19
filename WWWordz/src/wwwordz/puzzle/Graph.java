@@ -1,4 +1,4 @@
-package puzzle;
+package wwwordz.puzzle;
 
 import java.util.HashMap;
 import java.util.LinkedList;

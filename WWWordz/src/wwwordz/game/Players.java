@@ -1,10 +1,10 @@
-package game;
+package wwwordz.game;
 
 import java.io.File;
 import java.util.HashMap;
 
-import game.Player;
-import shared.WWWordzException;
+import wwwordz.game.Player;
+import wwwordz.shared.WWWordzException;
 
 public class Players extends java.lang.Object implements java.io.Serializable {
 
@@ -33,7 +33,6 @@ public class Players extends java.lang.Object implements java.io.Serializable {
 			throw new WWWordzException("Player should be created");
 		}
 	}
-
 
 	@SuppressWarnings("unused")
 	public void cleanup() {

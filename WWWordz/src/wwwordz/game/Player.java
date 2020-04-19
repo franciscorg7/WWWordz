@@ -1,4 +1,4 @@
-package game;
+package wwwordz.game;
 
 public class Player 
 extends java.lang.Object

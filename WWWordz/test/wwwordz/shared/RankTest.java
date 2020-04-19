@@ -10,8 +10,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import shared.Rank;
 import wwwordz.TestData;
+import wwwordz.shared.Rank;
 
 public class RankTest extends TestData {
 

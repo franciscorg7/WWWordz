@@ -9,7 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import wwwordz.TestData;
-import shared.WWWordzException;
+import wwwordz.shared.WWWordzException;
 
 /**
 * Template for a test class on Manager - YOU NEED TO IMPLEMENTS THESE TESTS!

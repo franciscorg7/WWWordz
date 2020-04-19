@@ -1,7 +1,6 @@
-package puzzle;
+package wwwordz.puzzle;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,8 +8,8 @@ import java.text.Normalizer;
 import java.text.Normalizer.Form;
 import java.util.Locale;
 
-import puzzle.Trie.Node;
-import puzzle.Trie.Search;
+import wwwordz.puzzle.Trie.Node;
+import wwwordz.puzzle.Trie.Search;
 
 public class Dictionary
 extends java.lang.Object {

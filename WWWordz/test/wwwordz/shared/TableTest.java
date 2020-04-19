@@ -11,8 +11,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import shared.Table;
-import shared.Table.Cell;
+import wwwordz.shared.Table;
+import wwwordz.shared.Table.Cell;
 
 public class TableTest {
 	Table table;

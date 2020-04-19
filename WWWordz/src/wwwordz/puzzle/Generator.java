@@ -1,4 +1,4 @@
-package puzzle;
+package wwwordz.puzzle;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -6,11 +6,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import puzzle.Trie.Search;
-import shared.Puzzle;
-import shared.Puzzle.Solution;
-import shared.Table;
-import shared.Table.Cell;
+import wwwordz.puzzle.Trie.Search;
+import wwwordz.shared.Puzzle;
+import wwwordz.shared.Table;
+import wwwordz.shared.Puzzle.Solution;
+import wwwordz.shared.Table.Cell;
 
 public class Generator extends java.lang.Object {
 

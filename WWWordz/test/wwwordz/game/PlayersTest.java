@@ -16,10 +16,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import game.Player;
-import game.Players;
 import wwwordz.TestData;
-import shared.WWWordzException;
+import wwwordz.game.Player;
+import wwwordz.game.Players;
+import wwwordz.shared.WWWordzException;
 
 @DisplayName("Players")
 public class PlayersTest extends TestData {

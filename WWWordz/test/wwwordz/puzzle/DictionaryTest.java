@@ -14,7 +14,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
-import puzzle.Dictionary;
+import wwwordz.puzzle.Dictionary;
 
 @DisplayName("Dictionary")
 public class DictionaryTest {

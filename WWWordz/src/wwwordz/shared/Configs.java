@@ -1,4 +1,4 @@
-package shared;
+package wwwordz.shared;
 
 public class Configs 
 extends java.lang.Object{

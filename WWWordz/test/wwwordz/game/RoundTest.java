@@ -15,12 +15,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import game.Players;
-import game.Round;
 import wwwordz.TestData;
-import shared.Puzzle;
-import shared.Rank;
-import shared.WWWordzException;
+import wwwordz.game.Players;
+import wwwordz.game.Round;
+import wwwordz.shared.Puzzle;
+import wwwordz.shared.Rank;
+import wwwordz.shared.WWWordzException;
 
 @DisplayName("Round")
 public class RoundTest extends TestData {

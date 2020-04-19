@@ -1,4 +1,4 @@
-package shared;
+package wwwordz.shared;
 
 public class Rank
 extends java.lang.Object

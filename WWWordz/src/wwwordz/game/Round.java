@@ -1,4 +1,4 @@
-package game;
+package wwwordz.game;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import game.Players;
-import shared.Configs;
-import shared.Puzzle;
-import puzzle.Generator;
-import shared.Rank;
-import shared.WWWordzException;
+import wwwordz.game.Players;
+import wwwordz.puzzle.Generator;
+import wwwordz.shared.Configs;
+import wwwordz.shared.Puzzle;
+import wwwordz.shared.Rank;
+import wwwordz.shared.WWWordzException;
 
 public class Round extends java.lang.Object {
 

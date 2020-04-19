@@ -1,10 +1,7 @@
-package shared;
+package wwwordz.shared;
 
 import java.util.Iterator;
 import java.util.List;
-
-import puzzle.Graph;
-
 import java.util.LinkedList;
 
 public class Table extends java.lang.Object implements java.lang.Iterable<Table.Cell>, java.io.Serializable {

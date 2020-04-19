@@ -1,15 +1,12 @@
-package game;
+package wwwordz.game;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 
-import puzzle.Dictionary;
-import shared.Puzzle;
-import shared.Rank;
-import shared.Table;
-import shared.WWWordzException;
+import wwwordz.shared.Puzzle;
+import wwwordz.shared.Rank;
+import wwwordz.shared.WWWordzException;
 
 public class Manager {
 	private static long INITIAL_TIME = 0L;

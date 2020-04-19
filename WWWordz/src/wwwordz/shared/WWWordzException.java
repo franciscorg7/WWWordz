@@ -1,4 +1,4 @@
-package shared;
+package wwwordz.shared;
 
 public class WWWordzException extends java.lang.Exception {
 

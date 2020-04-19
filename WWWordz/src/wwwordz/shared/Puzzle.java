@@ -1,9 +1,9 @@
-package shared;
+package wwwordz.shared;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import shared.Table.Cell;
+import wwwordz.shared.Table.Cell;
 
 public class Puzzle 
 extends java.lang.Object

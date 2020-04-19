@@ -13,11 +13,11 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import puzzle.Generator;
-import shared.Puzzle;
-import shared.Puzzle.Solution;
-import shared.Table;
+import wwwordz.puzzle.Generator;
+import wwwordz.shared.Puzzle;
+import wwwordz.shared.Table;
 import wwwordz.shared.TableTest;
+import wwwordz.shared.Puzzle.Solution;
 
 public class GeneratorTest {
 	Generator generator;

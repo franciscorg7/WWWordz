@@ -13,18 +13,14 @@ public class Players extends java.lang.Object implements java.io.Serializable {
 	 */
 	private static final String DATA_FILE = "players.ser";
 	private static final long serialVersionUID = 1L;
-<<<<<<< HEAD
-	static HashMap<String, Player> theplayers;
-=======
->>>>>>> branch 'master' of https://github.com/franciscorg7/WWWordz.git
-	private static Players single_instance = null;
-<<<<<<< HEAD
 
-=======
+	static HashMap<String, Player> theplayers = new HashMap<>();
+
+	private static Players single_instance = null;
+
 	private static File home = new File(System.getProperty("user.dir"));
 	private static File data = new File(home,DATA_FILE);
-	 HashMap<String, Player> theplayers = new HashMap<>();
->>>>>>> branch 'master' of https://github.com/franciscorg7/WWWordz.git
+
 	private Players() {
 	}
 
@@ -37,21 +33,14 @@ public class Players extends java.lang.Object implements java.io.Serializable {
 			throw new WWWordzException("Player should be created");
 		}
 	}
-<<<<<<< HEAD
+
 
 	@SuppressWarnings("unused")
-=======
-	
->>>>>>> branch 'master' of https://github.com/franciscorg7/WWWordz.git
 	public void cleanup() {
 		theplayers.clear();
 	}
 
 	public static File getHome() {
-<<<<<<< HEAD
-		File home = new File(System.getProperty("user.dir"));
-=======
->>>>>>> branch 'master' of https://github.com/franciscorg7/WWWordz.git
 		return home;
 	}
 
@@ -66,34 +55,23 @@ public class Players extends java.lang.Object implements java.io.Serializable {
 		Player player = theplayers.get(nick);
 		return player;
 	}
-<<<<<<< HEAD
 
 	public static void resetPoints(String nick) throws WWWordzException {
-		if (theplayers.get(nick) != null) {
-			theplayers.get(nick).setPoints(0);
-		} else {
-=======
-	
-	public void resetPoints(String nick) throws WWWordzException {
 		if(theplayers.get(nick)!=null) {
 		theplayers.get(nick).setPoints(0);
 	}
 		else {
->>>>>>> branch 'master' of https://github.com/franciscorg7/WWWordz.git
 			throw new WWWordzException("Player should be created");
 		}
 	}
 
 	public static void setHome(File home) {
-<<<<<<< HEAD
 		File home1 = new File(System.getProperty("user.dir"));
 		File Data = new File(home1, "Data");
 
-=======
 		 Players.home=home;
 		 Players.data = new File(home,DATA_FILE);
 		
->>>>>>> branch 'master' of https://github.com/franciscorg7/WWWordz.git
 	}
 
 	/* true if passwords match */
@@ -106,8 +84,7 @@ public class Players extends java.lang.Object implements java.io.Serializable {
 			return getPlayer(nick).getPassword().equals(password);
 		}
 	}
-
-<<<<<<< HEAD
+	
 	public static void main(String[] args) throws WWWordzException {
 		Player player = new Player("ola", "asd");
 		int points = 100;
@@ -119,7 +96,5 @@ public class Players extends java.lang.Object implements java.io.Serializable {
 		// Boolean verify =verify("ola","asd");
 		// System.out.println(verify);
 	}
-=======
->>>>>>> branch 'master' of https://github.com/franciscorg7/WWWordz.git
 
 }

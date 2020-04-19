@@ -132,9 +132,10 @@ public class PlayersTest extends TestData {
 	 * 2) password
 	 * 3) points (0)
 	 * 4) accumulated points (p)
+	 * @throws WWWordzException 
 	 */
 	@Test
-	public void testGetPlayer() {
+	public void testGetPlayer() throws WWWordzException {
 		assertTrue(players.verify(NICK,PASSWORD),"Player should be created");
 		
 		Player player = players.getPlayer(NICK);

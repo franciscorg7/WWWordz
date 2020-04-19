@@ -71,7 +71,7 @@ public class Players extends java.lang.Object implements java.io.Serializable {
 		
 	}
 
-	/* true if passwords match */
+	/* true if passwords match  */
 	public boolean verify(String nick, String password) {
 		if (getPlayer(nick) == null) {
 			theplayers.put(nick, new Player(nick, password));

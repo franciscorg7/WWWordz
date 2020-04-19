@@ -3,6 +3,7 @@ package wwwordz.game;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import wwwordz.shared.Puzzle;
 import wwwordz.shared.Rank;
@@ -20,6 +21,18 @@ public class Manager {
             single_instance = new Manager(); 
   
         return single_instance;
+	}
+	private Manager() {
+		
+		worker.scheduleAtFixedRate(new Runnable() {
+
+			@Override
+			public void run() {
+				round = new Round();
+			}
+			
+		},  Round.getRoundStageDuration(),0, TimeUnit.MILLISECONDS);
+		
 	}
 	
 	public Puzzle getPuzzle() throws WWWordzException, IOException{

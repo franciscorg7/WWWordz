@@ -34,7 +34,6 @@ public class Players extends java.lang.Object implements java.io.Serializable {
 		}
 	}
 
-	@SuppressWarnings("unused")
 	public void cleanup() {
 		theplayers.clear();
 	}

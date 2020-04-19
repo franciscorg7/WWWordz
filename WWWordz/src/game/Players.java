@@ -18,8 +18,8 @@ public class Players extends java.lang.Object implements java.io.Serializable {
 
 	private static Players single_instance = null;
 
-	private static File home = new File(System.getProperty("user.dir"));
-	private static File data = new File(home,DATA_FILE);
+	static File home = new File(System.getProperty("user.dir"));
+	static File data = new File(home,DATA_FILE);
 
 	private Players() {
 	}
@@ -69,8 +69,8 @@ public class Players extends java.lang.Object implements java.io.Serializable {
 		File home1 = new File(System.getProperty("user.dir"));
 		File Data = new File(home1, "Data");
 
-		 Players.home=home;
-		 Players.data = new File(home,DATA_FILE);
+		Players.home = home;
+		Players.data = new File(home, DATA_FILE);
 		
 	}
 

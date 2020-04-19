@@ -33,13 +33,13 @@ public class Round extends java.lang.Object {
 	private static long ranking_config = Configs.RANKING_STAGE_DURATION;
 	private static long report_config = Configs.REPORT_STAGE_DURATION;
 
-	Date join = new Date();
-	Date play = new Date(join.getTime() + join_config);
-	Date report = new Date(play.getTime() + play_config);
+	static Date join = new Date();
+	static Date play = new Date(join.getTime() + join_config);
+	static Date report = new Date(play.getTime() + play_config);
 	Date ranking = new Date(report.getTime() + report_config);
 	Date end = new Date(ranking.getTime() + ranking_config);
 
-	Puzzle puzzle;
+	static Puzzle puzzle;
 	private Players theplayers = Players.getInstance();
 	Map<String, Player> roundPlayers = new HashMap<>();
 
@@ -54,7 +54,7 @@ public class Round extends java.lang.Object {
 		return play_config;
 	}
 
-	public Puzzle getPuzzle() throws WWWordzException, IOException {
+	public static Puzzle getPuzzle() throws WWWordzException, IOException {
 		puzzle = Generator.generate();
 		
 		Date cur = new Date();
@@ -155,8 +155,10 @@ public class Round extends java.lang.Object {
 		Round.report_config = reportStageDuration;
 	}
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, WWWordzException {
 		long c = getJoinStageDuration();
+		Puzzle p = getPuzzle();
+		System.out.println(p.toString());
 		System.out.print(c);
 	}
 }
